@@ -1,4 +1,4 @@
-view: cde_profile_service__1__profile_event_v001 {
+view: cde_profile_service__1__ProfileEvent_v001 {
   sql_table_name: wwi_processed_data.cde_profile_service__1__ProfileEvent_v001 ;;
 
   dimension: headers {

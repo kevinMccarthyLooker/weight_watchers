@@ -1,4 +1,4 @@
-view: core_journaling_service__1__journal_event_v010 {
+view: core_journaling_service__1__JournalEvent_v010 {
   sql_table_name: wwi_processed_data.core_journaling_service__1__JournalEvent_v010 ;;
 
   dimension: headers {
@@ -16,10 +16,10 @@ view: core_journaling_service__1__journal_event_v010 {
     sql: ${TABLE}.payload ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: []
-  }
+#   measure: count {
+#     type: count
+#     drill_fields: []
+#   }
 }
 
 view: core_journaling_service__1__JournalEvent_v010__partitions {
@@ -67,10 +67,14 @@ view: core_journaling_service__1__JournalEvent_v010__headers {
 }
 
 view: core_journaling_service__1__JournalEvent_v010__payload {
+  sql_table_name: wwi_raw_data.core_journaling_service__1__JournalEvent;;
   dimension: id {
     primary_key: yes
     type: string
     sql: ${TABLE}.id ;;
+  }
+  measure: count {
+    type: count
   }
 
   dimension: activity_id {

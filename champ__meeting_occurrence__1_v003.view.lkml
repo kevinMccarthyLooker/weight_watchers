@@ -73,7 +73,7 @@ view: champ__MEETING_OCCURRENCE__1_v003__payload {
     type: time
     timeframes: [
       raw,
-      time,
+#       time,
       date,
       week,
       month,
