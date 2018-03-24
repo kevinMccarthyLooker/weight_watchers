@@ -12,7 +12,25 @@ datagroup: weight_watchers_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+
+explore: core_profile_service__1__ProfileEvent_v020_km {
+  hidden: yes
+#   join: core_profile_service__1__ProfileEvent_v020__payload {
+#     sql: ,UNNEST([${core_profile_service__1__ProfileEvent_v020.payload}]) as core_profile_service__1__ProfileEvent_v020__payload ;;
+#     relationship: one_to_one
+#   }
+  join: core_journaling_service__1__JournalEvent_v010_km {
+#     sql: LEFT JOIN UNNEST([wwi_processed_data.core_journaling_service__1__JournalEvent_v010.payload]) as core_journaling_service__1__JournalEvent_v010__payload on ${core_journaling_service__1__JournalEvent_v010__payload.user_id}=${core_profile_service__1__ProfileEvent_v020__payload.user_id} ;;
+    sql_on: ${core_profile_service__1__ProfileEvent_v020_km.user_id}= ${core_journaling_service__1__JournalEvent_v010_km.user_id};;
+    relationship: one_to_many
+  }
+
+}
+
+
+
 explore: core_journaling_service__1__JournalEvent_v010 {
+  hidden: yes
   label: "Journal Event"
   join: core_journaling_service__1__JournalEvent_v010__partitions {
 #     view_label: "Core Journaling Service 1 Journalevent V010: Partitions"
@@ -35,32 +53,33 @@ explore: core_journaling_service__1__JournalEvent_v010 {
     relationship: one_to_one
   }
 
-#   join: cde_profile_service__1__ProfileEvent_v001 {
-#     view_label: "Profile Event"
-#     sql_on: ${cde_profile_service__1__ProfileEvent_v001__payload.user_id}=${core_journaling_service__1__JournalEvent_v010__payload.user_id} ;;
-#     relationship: many_to_one
-#   }
-#
-#   join: cde_profile_service__1__ProfileEvent_v001__partitions {
-# #     view_label: "Cde Profile Service 1 Profileevent V001: Partitions"
-#     view_label: "Profile Event"
-#     sql: LEFT JOIN UNNEST([${cde_profile_service__1__ProfileEvent_v001.partitions}]) as cde_profile_service__1__ProfileEvent_v001__partitions ;;
-#     relationship: one_to_one
-#   }
-#
-#   join: cde_profile_service__1__ProfileEvent_v001__headers {
-# #     view_label: "Cde Profile Service 1 Profileevent V001: Headers"
-#     view_label: "Profile Event"
-#     sql: LEFT JOIN UNNEST([${cde_profile_service__1__ProfileEvent_v001.headers}]) as cde_profile_service__1__ProfileEvent_v001__headers ;;
-#     relationship: one_to_one
-#   }
-#
-#   join: cde_profile_service__1__ProfileEvent_v001__payload {
-# #     view_label: "Cde Profile Service 1 Profileevent V001: Payload"
-#     view_label: "Profile Event"
-#     sql: LEFT JOIN UNNEST([${cde_profile_service__1__ProfileEvent_v001.payload}]) as cde_profile_service__1__ProfileEvent_v001__payload ;;
-#     relationship: one_to_one
-#   }
+  join: core_profile_service__1__ProfileEvent_v001 {
+    view_label: "Profile Event"
+#     sql_on: ${cde_profile_service__1__ProfileEvent_v001.user_id}=${core_journaling_service__1__JournalEvent_v010__payload.user_id} ;;
+    sql_on: ${core_profile_service__1__ProfileEvent_v001__payload.user_id}=${core_journaling_service__1__JournalEvent_v010__payload.user_id} ;;
+    relationship: many_to_one
+  }
+# #
+# #   join: cde_profile_service__1__ProfileEvent_v001__partitions {
+# # #     view_label: "Cde Profile Service 1 Profileevent V001: Partitions"
+# #     view_label: "Profile Event"
+# #     sql: LEFT JOIN UNNEST([${cde_profile_service__1__ProfileEvent_v001.partitions}]) as cde_profile_service__1__ProfileEvent_v001__partitions ;;
+# #     relationship: one_to_one
+# #   }
+# #
+# #   join: cde_profile_service__1__ProfileEvent_v001__headers {
+# # #     view_label: "Cde Profile Service 1 Profileevent V001: Headers"
+# #     view_label: "Profile Event"
+# #     sql: LEFT JOIN UNNEST([${cde_profile_service__1__ProfileEvent_v001.headers}]) as cde_profile_service__1__ProfileEvent_v001__headers ;;
+# #     relationship: one_to_one
+# #   }
+# #
+  join: core_profile_service__1__ProfileEvent_v001__payload {
+#     view_label: "Cde Profile Service 1 Profileevent V001: Payload"
+    view_label: "Profile Event"
+    sql: LEFT JOIN UNNEST([${core_profile_service__1__ProfileEvent_v001.payload}]) as cde_profile_service__1__ProfileEvent_v001__payload ;;
+    relationship: one_to_one
+  }
 
 }
 

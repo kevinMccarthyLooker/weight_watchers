@@ -319,3 +319,319 @@ view: core_journaling_service__1__JournalEvent_v010__payload {
     sql: ${TABLE}.weightId ;;
   }
 }
+
+#####################
+view: core_journaling_service__1__JournalEvent_v010_km {
+  sql_table_name: wwi_processed_data.core_journaling_service__1__JournalEvent_v010 ;;
+
+  dimension: headers {
+    hidden: yes
+    sql: ${TABLE}.headers ;;
+  }
+
+  dimension: partitions {
+    hidden: yes
+    sql: ${TABLE}.partitions ;;
+  }
+
+  dimension: payload {
+    hidden: yes
+    sql: ${TABLE}.payload ;;
+  }
+
+#   measure: count {
+#     type: count
+#     drill_fields: []
+#   }
+
+  dimension: day {
+    type: string
+    sql: ${partitions}.day ;;
+  }
+
+  dimension: hour {
+    type: string
+    sql: ${partitions}.hour ;;
+  }
+
+  dimension: month {
+    type: string
+    sql: ${partitions}.month ;;
+  }
+
+  dimension: year {
+    type: string
+    sql: ${partitions}.year ;;
+  }
+
+  dimension: action {
+    type: string
+    sql: ${headers}.action ;;
+  }
+
+  dimension: event_type {
+    type: string
+    sql: ${headers}.eventType ;;
+  }
+
+  dimension: message_id {
+    primary_key: yes
+    type: string
+    sql: ${headers}.messageId ;;
+  }
+
+  dimension: headers__source {
+    type: string
+    sql: ${headers}.source ;;
+  }
+
+  dimension: id {
+    type: string
+    sql: ${payload}.id ;;
+  }
+  measure: count {
+    type: count
+  }
+
+  dimension: activity_id {
+    type: string
+    sql: ${payload}.activityId ;;
+  }
+
+  dimension: activity_type {
+    type: string
+    sql: ${payload}.activityType ;;
+  }
+
+  dimension: calories {
+    type: number
+    sql: ${payload}.calories ;;
+  }
+
+  dimension: code {
+    type: string
+    sql: ${payload}.code ;;
+  }
+
+  dimension_group: completed {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${payload}.completedAt ;;
+  }
+
+  dimension: current_weight_in_kgs {
+    type: number
+    sql: ${payload}.currentWeightInKgs ;;
+  }
+
+  dimension: date {
+    type: string
+    sql: ${payload}.date ;;
+  }
+
+  dimension: duration {
+    type: number
+    sql: ${payload}.duration ;;
+  }
+
+  dimension_group: event {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${payload}.eventAt ;;
+  }
+
+  dimension: food_alt_id {
+    type: string
+    sql: ${payload}.foodAltId ;;
+  }
+
+  dimension: food_id {
+    type: string
+    sql: ${payload}.foodId ;;
+  }
+
+  dimension: food_name {
+    type: string
+    sql: ${payload}.foodName ;;
+  }
+
+  dimension: food_type {
+    type: string
+    sql: ${payload}.foodType ;;
+  }
+
+  dimension: food_version {
+    type: string
+    sql: ${payload}.foodVersion ;;
+  }
+
+  dimension: intensity {
+    type: number
+    sql: ${payload}.intensity ;;
+  }
+
+  dimension: is_ambulatory {
+    type: yesno
+    sql: ${payload}.isAmbulatory ;;
+  }
+
+  dimension: is_core {
+    type: yesno
+    sql: ${payload}.isCore ;;
+  }
+
+  dimension_group: last_updated {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${payload}.lastUpdated ;;
+  }
+
+  dimension: meal_id {
+    type: string
+    sql: ${payload}.mealId ;;
+  }
+
+  dimension: meal_version {
+    type: string
+    sql: ${payload}.mealVersion ;;
+  }
+
+  dimension: name {
+    type: string
+    sql: ${payload}.name ;;
+  }
+
+  dimension: notes {
+    type: string
+    sql: ${payload}.notes ;;
+  }
+
+  dimension: points {
+    type: number
+    sql: ${payload}.points ;;
+  }
+
+  dimension: points_per_serving {
+    type: number
+    sql: ${payload}.pointsPerServing ;;
+  }
+
+  dimension: portion_id {
+    type: string
+    sql: ${payload}.portionId ;;
+  }
+
+  dimension: portion_measurement {
+    type: string
+    sql: ${payload}.portionMeasurement ;;
+  }
+
+  dimension: portion_size {
+    type: number
+    sql: ${payload}.portionSize ;;
+  }
+
+  dimension: ppv {
+    type: number
+    sql: ${payload}.ppv ;;
+  }
+
+  dimension: quick_add_food_id {
+    type: string
+    sql: ${payload}.quickAddFoodId ;;
+  }
+
+  dimension: smart_points {
+    type: number
+    sql: ${payload}.smartPoints ;;
+  }
+
+  dimension: smart_points_per_serving {
+    type: number
+    sql: ${payload}.smartPointsPerServing ;;
+  }
+
+  dimension: payload__source {
+    type: string
+    sql: ${payload}.source ;;
+  }
+
+  dimension: spv {
+    type: number
+    sql: ${payload}.spv ;;
+  }
+
+  dimension: steps {
+    type: number
+    sql: ${payload}.steps ;;
+  }
+
+  dimension: time_of_day {
+    type: string
+    sql: ${payload}.timeOfDay ;;
+  }
+
+  dimension: timestamp {
+    type: string
+    sql: ${payload}.timestamp ;;
+  }
+
+  dimension: type {
+    type: string
+    sql: ${payload}.type ;;
+  }
+
+  dimension: units {
+    type: string
+    sql: ${payload}.units ;;
+  }
+
+  dimension: user_agent {
+    type: string
+    sql: ${payload}.user_agent ;;
+  }
+
+  dimension: user_alt_id {
+    type: string
+    sql: ${payload}.userAltId ;;
+  }
+
+  dimension: user_id {
+    type: string
+    sql: ${payload}.userId ;;
+  }
+
+  dimension: weight {
+    type: number
+    sql: ${payload}.weight ;;
+  }
+
+  dimension: weight_id {
+    type: string
+    sql: ${payload}.weightId ;;
+  }
+}
